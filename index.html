@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="videos/Leonardo_da_Vinci_helicopter.jpg">
 
-    <title>Da Vinci Design</title>
+    <title>Alex Lizzo</title>
    <!--  <link rel="stylesheet" type="text/css" href="FrontPage.css"> -->
     <style>
         h1 { color: black; }
@@ -213,7 +213,7 @@
         }
 
 
-        .philosophy-content {
+        .resume-content {
             position: relative;
             background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black overlay */
             padding: 30px;
@@ -265,17 +265,16 @@
     <div class="banner">
         <!-- Logo on the left -->
         <div class="Logo">
-             <h1>Da Vinci Design</h1>
-        <!--    <img src="videos/Logo.jpg" alt="Da Vinci Design Logo" width="50" height="50">  -->
+             <h1>Alex Lizzo</h1>
         </div>
 
         <!-- Tabs Navigation on the right -->
         <div class="tab-container-right">
             <button class="tab active-tab" onclick="openTab(event, 'Main')">Home Page</button>
-            <button class="tab" onclick="openTab(event, 'content1')">About Us</button>
+            <button class="tab" onclick="openTab(event, 'content1')">About</button>
             <button class="tab" onclick="openTab(event, 'content2')">Services</button>
-            <button class="tab" onclick="openTab(event, 'content3')">Previous Projects</button>
-            <button class="tab" onclick="openTab(event, 'content4')">Philosophies</button>
+            <button class="tab" onclick="openTab(event, 'content3')">Demos</button>
+            <button class="tab" onclick="openTab(event, 'content4')">Resume</button>
             <button class="tab" onclick="openTab(event, 'content5')">Contact Us</button>
         </div>
     </div>
@@ -286,34 +285,60 @@
 
     <!-- Content Sections -->
     <div id="Main" class="content-section active-content">
-        <h2>Da Vinci Design Solutions</h2>
-            <div class ="image-text-wrapper" width="100%" style=" display: flex;
-            align-items: center; justify-content: center; flex-direction: column; width: 100%; text-align: center; padding: 20px; ">
-            <h3>  “- raising a renaissance in software system design.” <h3>
-            <img src="videos/DaVinciDesign.png" alt="Da Vinci Design Logo" style="  max-width: 100%; height: auto; margin-bottom: 10px;">  
-        </div>
-    </div>
+       
+        <h2 style="margin-right: 10px;">Alex Lizzo</h2>
+    
+    <!-- Slideshow container -->
+        <div class="slideshow-container">
+            <!-- Slide 2: Video -->
+            <video class="slide active-slide" autoplay loop muted>
+            <source src="videos/20241008161505726.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Slide 2: Video -->
+        <video class="slide active-slide" autoplay loop muted>
+            <source src="videos/raspberrypiToStartUpOlderAsus.MOV" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Slide 3: Video -->
+        <video class="slide" autoplay loop muted>
+            <source src="videos/projectprogress.mov" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    
+        <!-- Slide 4: Video -->
+        <video class="slide" autoplay loop muted>
+            <source src="videos/SwaggerUI.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Slide 5: Video -->
+        <video class="slide" autoplay loop muted>
+            <source src="videos/RecipeTabView.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+
+        <!-- Slide 5: Video -->
+        <video class="slide" autoplay loop muted>
+            <source src="videos/6502 with interrupts.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+        <a class="next" onclick="changeSlide(1)">&#10095;</a>
+    </div>        
+</div>
 
     <div id="content1" class="content-section">
-        <h2>About Us:</h2>
+        <h2>About:</h2>
         <div class="image-text-wrapper">
-             <img src="videos/Ellie_Pic.jpg" alt="Ellie's Picture" width="150" height="200">
-
-            <div class="text-box">
-                <p><strong>Ellie is in her third year at Marist. She's studying Computer Science and is passionate about bridging the gap between business needs and technological solutions. At Da Vinci Design Solutions she is a project architect and enjoys mapping out ideas and using the creative process to help businesses achieve their goals. Outside of work and school, she enjoys rock climbing, board games, and dancing </strong> &#128516;</p>
-            </div>
-
                 <img src="videos/Alex_pic.jpeg" alt="Alex' Picture" width="150" height="200">
             <div class="text-box">
                 <p><strong>Alex is graduating this December with his second degree in Computer Science from Marist.  His role at Da Vinci Designs is a finance-specialized software engineer, developing and enhancing accounting web applications, including a full application rewrite, with expertise in API development, debugging, and technical documentation. He has experience working on transitioning teams across new and old platforms and integrating old systems in new.</strong> &#128516;</p>
-            </div>
-                <img src="videos/Jimy_pic.jpg" alt="Jimy's Picture" width="150" height="200">
-            <div class="text-box">
-                <p><strong> Jimy is in his third year at Marist studying Computer Science.  At Da Vinci Solutions he is a software engineer specializes in building client projects where he actively contributes to brainstorming sessions, mapping out innovative ideas, and creating user-friendly interfaces. Outside of work and academics, Jimy enjoys staying active through outdoor sports, immersing himself in video games, and indulging in sim racing.</strong> &#128516;</p>
-            </div>
-                <img src="videos/Zach_pic.jpg" alt="Zach's Picture" width="150" height="200">
-            <div class="text-box">
-                <p><strong> Zach is in his final year at Marist studying Cyber Security.  At Da Vinci Solutions he is a Project Manager and specializes in acquiring clients and breaking down their needs to assign them to the proper worker and he also does end-of-project reporting and assists in the deployment/maintenance of our systems. Outside of work and school, Zach is actively involved in several campus organizations, including Beta Alpha Psi, Best Buddies, and the Cybersecurity Club.</strong> &#128516;</p>
             </div>
         </div>
     </div>
@@ -376,97 +401,18 @@
         </div>
     </div>
 
-    <div id="content3" class="content-section">
-       
-            <h2 style="margin-right: 10px;">Previous Projects</h2>
-      
-        
-        <!-- Slideshow container -->
-            <div class="slideshow-container">
-                <!-- Slide 2: Video -->
-                <video class="slide active-slide" autoplay loop muted>
-                <source src="videos/20241008161505726.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
 
-            <!-- Slide 2: Video -->
-            <video class="slide active-slide" autoplay loop muted>
-                <source src="videos/raspberrypiToStartUpOlderAsus.MOV" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-
-            <!-- Slide 3: Video -->
-            <video class="slide" autoplay loop muted>
-                <source src="videos/projectprogress.mov" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        
-            <!-- Slide 4: Video -->
-            <video class="slide" autoplay loop muted>
-                <source src="videos/SwaggerUI.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-
-            <!-- Slide 5: Video -->
-            <video class="slide" autoplay loop muted>
-                <source src="videos/RecipeTabView.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-
-
-            <!-- Slide 5: Video -->
-            <video class="slide" autoplay loop muted>
-                <source src="videos/6502 with interrupts.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-
-            <!-- Next and previous buttons -->
-            <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
-            <a class="next" onclick="changeSlide(1)">&#10095;</a>
-        </div>        
-
-        <p><b>Innovations & Trends:</b> Our design experts utilize the right components for the job based on our customer’s needs. 
-            Whether your goal is cost or complexity, Da Vinci Design draws from a range of materials and tools to hardware and software to complete the mission.
-             Our organization aims to create the industry ‘in vogue’ trends. Our organization provides expertise in audio, video, networking, computer engineering, 
-             computer design, Interface design, Human Computer Interaction, holograms, 2D - 3D - 4D experiences, light and optics, drones, cameras and imaging, 
-             just to name a few…
-        </p>
-        Some of our recent accomplishments:
-        <ul>
-            <li>Recently, we’ve collaborated with NBC personnel on designing PoE ‘Dante’ audio system for the set of the Steve Wilko Show (formerly the Jerry Springer Show).</li>
-            <li>Designed API that translate data formats from JSON to XML for health care clinics.</li>
-            <li>Designed networking automation for server-to-server communication.</li>
-        </ul>
-    </div>
 
     <div id="content4" class="content-section">
         <!-- Header positioned in the canvas background section -->
-        <h2>Philosophies</h2>
+        <h2>Resume</h2>
     
         <!-- Black transparent window for the text content -->
-        <div class="philosophy-content">
-            <p><b>Design Philosophy: </b>Our design philosophy revolves around simplified user interfaces, 
-                which are backed by elegance, fast, and complex logic. 
-                This combination of concepts creates an intuitive design that is aesthetically pleasing, 
-                yet dynamic in functionality. Simply put, our products are easy to use, 
-                and they will solve your needs.</p>
+        <div class="resume-content">
+            <p><b>Maybe a timeline?: </b> I like that, but how?</p>
             
-                <p><b>Core Values:</b> Here at Da Vinci solutions, we want to channel the energy of Leonardo himself
-                     by creating aesthetically beautiful designs that innovate while solving problems of all types. 
-                      As Da Vinci himself was a creator, inventor, scientist, and artist, we want to center all celebrations 
-                      of human brilliance in our design solutions.  We highly value feedback, consistency, and efficiency 
-                      in our programs while designing systems that will excite people. </p>
+                <p><b>Core Values:</b> core </p>
     
-                <p><b>Problem Solving Approach:</b> Our approach to problem solving can take different perspectives
-                depending on the scope, complexity, and subject matter. Typically, Da Vinci Design 
-                implements best paradigms, visions, theories, models, and frameworks, 
-                but other times we think outside of the box. Our organization has a variety of different 
-                brainstorming techniques that lead to our best ideas and astray from worst ideas. 
-                We offer a variety of elicitation techniques such as surveys, interviews, role play, etc... 
-                For more simple projects, our organization might utilize the Design Council of the 
-                UK Double Diamond Approach, as you can imagine more complex problems require more research,
-                    user input, concept modeling, and concept prototypes. Additionally, we employ the use of 
-                    artificial intelligence and machine learning techniques where applicable to optimize systems. </p>
         </div>
     </div>
     
