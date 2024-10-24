@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="videos/Leonardo_da_Vinci_helicopter.jpg">
+
+    <title>Da Vinci Design</title>
+   <!--  <link rel="stylesheet" type="text/css" href="FrontPage.css"> -->
+    <style>
+        h1 { color: black; }
+        h2 {
+            color: rgb(0, 0, 0);
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            font-size: 3em;
+        }
+
+        /* Style for Canvas */
+        #displayBackground {
+            display: block;
+            width: 100%;
+            height: 130px; /* Adjust height as needed */
+            background-color: #FAF1D3; /* Fallback background color */
+        }
+
+        /* Tabs styling */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .tab {
+            padding: 14px 16px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tab:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .tab.active-tab {
+            background-color: #666;
+            color: white;
+        }
+
+        /* Style for slideshow container */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;    
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #F5F3E7; /* Light parchment color */
+            color: #2A2A2A; 
+            
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .content-section {
+            display: none; /* Hide all content sections initially */
+            min-height: 500px; /* Ensure content area has enough space */
+            padding: 20px;
+            padding-bottom: 80px; /* Extra padding to avoid overlap with footer */
+            border: 1px solid #ccc;
+        }
+
+        /* Show active content section */
+        .content-section.active-content {
+            display: block;
+        }
+
+        .slide {
+            display: none;
+            width: 100%; 
+            height: 300px;
+        }
+
+        /* Show the active slide */
+        .active-slide {
+            display: block; 
+        }
+
+        /* Next and Previous buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            z-index: 10; /* Place above other elements */
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev {
+            left: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3A2E39; /* Background color for the banner */
+            padding: 10px 20px;
+        }
+
+        .banner .Logo h1 {
+            margin: 0; 
+            color: #E6B422;
+            padding-left: 10px;
+        }
+
+        /* Style for the tabs container */
+        .tab-container-right {
+            display: flex;
+            gap: 15px; /* Space between tabs */
+        }
+
+        .tab {
+            padding: 14px 16px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            background-color: transparent;
+            border: none;
+        }
+
+        .tab:hover {
+            background-color: #C5A880; 
+            color: #3A2E39; 
+        }
+
+        .tab.active-tab {
+            background-color: #704214; 
+            color: #E6B422;
+        }
+        .text-box {
+            width: 310px; /* Same width as the image */
+            box-sizing: border-box;
+            padding: 10px;
+            border: 2px solid #ccc; /* Optional border */
+            display: flex;
+            align-items: center; /* Vertically centers the text inside the box */
+            justify-content: center; /* Horizontally centers the text */
+            text-align: justify; /* Optional: Justify the text */
+            height: auto; /* Let the height adjust based on content */
+            flex-direction: column; /* Allow text to expand vertically */
+        }
+
+        .text-box p {
+            margin: 0;
+        }
+        .image-text-wrapper {
+            display: flex;
+            align-items: center; /* Aligns the text vertically in the center relative to the image */
+        }
+
+        .image-text-wrapper img {
+            flex-shrink: 0;
+            margin-right: 5px; /* Spacing between image and text box */
+        }
+        #content4 {
+       
+            background-image: url('https://orion-uploads.openroadmedia.com/md_56b644749fe6-32975724116_8a972ba6a3_k.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            text-align: center;
+            color: white;
+            padding-top: 10px; 
+        }
+
+
+        .philosophy-content {
+            position: relative;
+            background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black overlay */
+            padding: 30px;
+            border-radius: 10px;
+            
+            margin: 10px auto 0; 
+            z-index: 1;
+        }
+
+        /* Footer styling (Zach)*/
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .service {
+            margin-bottom: 40px;
+        }
+
+        .service h2 {
+            font-size: 1.8em;
+            color: #4B0082;
+        }
+
+        .service p {
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+     ul {
+            margin-top: 10px;
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+
+
+
+        
+    </style>
+</head>
+<body onload="onDocumentLoad()">
+
+    <!-- Tabs Navigation -->
+    <!-- Banner Container with Logo and Tabs -->
+    <div class="banner">
+        <!-- Logo on the left -->
+        <div class="Logo">
+             <h1>Da Vinci Design</h1>
+        <!--    <img src="videos/Logo.jpg" alt="Da Vinci Design Logo" width="50" height="50">  -->
+        </div>
+
+        <!-- Tabs Navigation on the right -->
+        <div class="tab-container-right">
+            <button class="tab active-tab" onclick="openTab(event, 'Main')">Home Page</button>
+            <button class="tab" onclick="openTab(event, 'content1')">About Us</button>
+            <button class="tab" onclick="openTab(event, 'content2')">Services</button>
+            <button class="tab" onclick="openTab(event, 'content3')">Previous Projects</button>
+            <button class="tab" onclick="openTab(event, 'content4')">Philosophies</button>
+            <button class="tab" onclick="openTab(event, 'content5')">Contact Us</button>
+        </div>
+    </div>
+
+    <!-- Background Canvas directly below the banner -->
+    <canvas id="displayBackground"></canvas>
+
+
+    <!-- Content Sections -->
+    <div id="Main" class="content-section active-content">
+        <h2>Da Vinci Design Solutions</h2>
+            <div class ="image-text-wrapper" width="100%" style=" display: flex;
+            align-items: center; justify-content: center; flex-direction: column; width: 100%; text-align: center; padding: 20px; ">
+            <h3>  “- raising a renaissance in software system design.” <h3>
+            <img src="videos/DaVinciDesign.png" alt="Da Vinci Design Logo" style="  max-width: 100%; height: auto; margin-bottom: 10px;">  
+        </div>
+    </div>
+
+    <div id="content1" class="content-section">
+        <h2>About Us:</h2>
+        <div class="image-text-wrapper">
+             <img src="videos/Ellie_Pic.jpg" alt="Ellie's Picture" width="150" height="200">
+
+            <div class="text-box">
+                <p><strong>Ellie is in her third year at Marist. She's studying Computer Science and is passionate about bridging the gap between business needs and technological solutions. At Da Vinci Design Solutions she is a project architect and enjoys mapping out ideas and using the creative process to help businesses achieve their goals. Outside of work and school, she enjoys rock climbing, board games, and dancing </strong> &#128516;</p>
+            </div>
+
+                <img src="videos/Alex_pic.jpeg" alt="Alex' Picture" width="150" height="200">
+            <div class="text-box">
+                <p><strong>Alex is graduating this December with his second degree in Computer Science from Marist.  His role at Da Vinci Designs is a finance-specialized software engineer, developing and enhancing accounting web applications, including a full application rewrite, with expertise in API development, debugging, and technical documentation. He has experience working on transitioning teams across new and old platforms and integrating old systems in new.</strong> &#128516;</p>
+            </div>
+                <img src="videos/Jimy_pic.jpg" alt="Jimy's Picture" width="150" height="200">
+            <div class="text-box">
+                <p><strong> Jimy is in his third year at Marist studying Computer Science.  At Da Vinci Solutions he is a software engineer specializes in building client projects where he actively contributes to brainstorming sessions, mapping out innovative ideas, and creating user-friendly interfaces. Outside of work and academics, Jimy enjoys staying active through outdoor sports, immersing himself in video games, and indulging in sim racing.</strong> &#128516;</p>
+            </div>
+                <img src="videos/Zach_pic.jpg" alt="Zach's Picture" width="150" height="200">
+            <div class="text-box">
+                <p><strong> Zach is in his final year at Marist studying Cyber Security.  At Da Vinci Solutions he is a Project Manager and specializes in acquiring clients and breaking down their needs to assign them to the proper worker and he also does end-of-project reporting and assists in the deployment/maintenance of our systems. Outside of work and school, Zach is actively involved in several campus organizations, including Beta Alpha Psi, Best Buddies, and the Cybersecurity Club.</strong> &#128516;</p>
+            </div>
+        </div>
+    </div>
+ 
+    <div id="content2" class="content-section">
+        <h2>Services</h2>
+        <div class="container">
+            <p><b>Client Relationships:</b> Da Vinci Design is an industry innovated trusted fiduciary.
+                As our client, we want to fully understand your goals and background from every angle,
+                as we walk you through every step of ideation process. Our clients are our number one
+                priority and we highly regard communication and transparency throughout our development cycle.
+                Collaboration is key when developing concepts. Da Vinci Design has an arsenal of methodologies
+                to gain user feedback and resolve any conflicts that might arise. We are here for our clients,
+                to design products on behalf of clients.</p>
+
+            <div class="service">
+                <h3 style="font-size: 1.8em;color: #4B0082;">Deep Dive Website Analysis</h3>
+                <p>Our comprehensive Deep Dive Website Analysis service focuses on assessing your existing website from every angle...</p>
+                <ul>
+                    <li>Evaluating website load time and performance metrics</li>
+                    <li>Analyzing design consistency, mobile responsiveness, and accessibility</li>
+                    <li>Conducting a usability study to identify pain points for users</li>
+                    <li>Providing recommendations to boost SEO and conversion rates</li>
+                </ul>
+            </div>
+
+            <!-- Additional services copied from the second HTML document -->
+            <div class="service">
+                <h3 style="font-size: 1.8em;color: #4B0082;">Custom Software Design & Development</h3>
+                <p>At Da Vinci Design Solutions, we pride ourselves on creating custom software tailored specifically to your business needs...</p>
+                <ul>
+                    <li>Comprehensive requirement gathering and analysis</li>
+                    <li>Creating user-friendly designs that emphasize simplicity and efficiency</li>
+                    <li>Developing scalable and secure software solutions</li>
+                    <li>Performing extensive testing to ensure performance and reliability</li>
+                </ul>
+            </div>
+
+            <div class="service">
+                <h3 style="font-size: 1.8em;color: #4B0082;">User Experience (UX) & User Interface (UI) Consulting</h3>
+                <p>Our UX/UI consulting services are designed to help you build digital products that delight users...</p>
+                <ul>
+                    <li>Conducting thorough user research and behavior analysis</li>
+                    <li>Designing wireframes and prototypes that focus on intuitive navigation</li>
+                    <li>Enhancing accessibility for a diverse range of users</li>
+                    <li>Applying the latest UI design trends to ensure a modern, attractive aesthetic</li>
+                </ul>
+            </div>
+
+            <div class="service">
+                <h3 style="font-size: 1.8em;color: #4B0082;">Artificial Intelligence & Machine Learning Integration</h3>
+                <p>AI and machine learning are transforming industries, and we ensure you stay ahead of the curve...</p>
+                <ul>
+                    <li>Implementing machine learning algorithms to analyze data and predict trends</li>
+                    <li>Designing custom AI solutions for automation and optimization</li>
+                    <li>Integrating AI with existing systems to enhance performance</li>
+                    <li>Providing ongoing support and updates to ensure the technology evolves with your business</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="content3" class="content-section">
+       
+            <h2 style="margin-right: 10px;">Previous Projects</h2>
+      
+        
+        <!-- Slideshow container -->
+            <div class="slideshow-container">
+                <!-- Slide 2: Video -->
+                <video class="slide active-slide" autoplay loop muted>
+                <source src="videos/20241008161505726.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Slide 2: Video -->
+            <video class="slide active-slide" autoplay loop muted>
+                <source src="videos/raspberrypiToStartUpOlderAsus.MOV" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Slide 3: Video -->
+            <video class="slide" autoplay loop muted>
+                <source src="videos/projectprogress.mov" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        
+            <!-- Slide 4: Video -->
+            <video class="slide" autoplay loop muted>
+                <source src="videos/SwaggerUI.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Slide 5: Video -->
+            <video class="slide" autoplay loop muted>
+                <source src="videos/RecipeTabView.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+
+            <!-- Slide 5: Video -->
+            <video class="slide" autoplay loop muted>
+                <source src="videos/6502 with interrupts.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Next and previous buttons -->
+            <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+            <a class="next" onclick="changeSlide(1)">&#10095;</a>
+        </div>        
+
+        <p><b>Innovations & Trends:</b> Our design experts utilize the right components for the job based on our customer’s needs. 
+            Whether your goal is cost or complexity, Da Vinci Design draws from a range of materials and tools to hardware and software to complete the mission.
+             Our organization aims to create the industry ‘in vogue’ trends. Our organization provides expertise in audio, video, networking, computer engineering, 
+             computer design, Interface design, Human Computer Interaction, holograms, 2D - 3D - 4D experiences, light and optics, drones, cameras and imaging, 
+             just to name a few…
+        </p>
+        Some of our recent accomplishments:
+        <ul>
+            <li>Recently, we’ve collaborated with NBC personnel on designing PoE ‘Dante’ audio system for the set of the Steve Wilko Show (formerly the Jerry Springer Show).</li>
+            <li>Designed API that translate data formats from JSON to XML for health care clinics.</li>
+            <li>Designed networking automation for server-to-server communication.</li>
+        </ul>
+    </div>
+
+    <div id="content4" class="content-section">
+        <!-- Header positioned in the canvas background section -->
+        <h2>Philosophies</h2>
+    
+        <!-- Black transparent window for the text content -->
+        <div class="philosophy-content">
+            <p><b>Design Philosophy: </b>Our design philosophy revolves around simplified user interfaces, 
+                which are backed by elegance, fast, and complex logic. 
+                This combination of concepts creates an intuitive design that is aesthetically pleasing, 
+                yet dynamic in functionality. Simply put, our products are easy to use, 
+                and they will solve your needs.</p>
+            
+                <p><b>Core Values:</b> Here at Da Vinci solutions, we want to channel the energy of Leonardo himself
+                     by creating aesthetically beautiful designs that innovate while solving problems of all types. 
+                      As Da Vinci himself was a creator, inventor, scientist, and artist, we want to center all celebrations 
+                      of human brilliance in our design solutions.  We highly value feedback, consistency, and efficiency 
+                      in our programs while designing systems that will excite people. </p>
+    
+                <p><b>Problem Solving Approach:</b> Our approach to problem solving can take different perspectives
+                depending on the scope, complexity, and subject matter. Typically, Da Vinci Design 
+                implements best paradigms, visions, theories, models, and frameworks, 
+                but other times we think outside of the box. Our organization has a variety of different 
+                brainstorming techniques that lead to our best ideas and astray from worst ideas. 
+                We offer a variety of elicitation techniques such as surveys, interviews, role play, etc... 
+                For more simple projects, our organization might utilize the Design Council of the 
+                UK Double Diamond Approach, as you can imagine more complex problems require more research,
+                    user input, concept modeling, and concept prototypes. Additionally, we employ the use of 
+                    artificial intelligence and machine learning techniques where applicable to optimize systems. </p>
+        </div>
+    </div>
+    
+    
+    <div id="content5" class="content-section">
+        <h2>Contact Us</h2>
+        <div class="container">
+            <p><b>Contact Information:</b> We would love to hear from you! If you have any questions, feedback, or would like to work with us, feel free to reach out using the following details:</p>
+            <ul>
+                <li><b>Email:</b> contact@davincidesign.com</li>
+                <li><b>Phone:</b> +1 (123) 456-7890</li>
+                <li><b>Address:</b> 123 Renaissance Blvd, Innovation City, IC 45678</li>
+            </ul>
+            <p><b>Working Hours:</b> We are available from Monday to Friday, 9:00 AM to 5:00 PM (EST).</p>
+            <p><b>Follow Us:</b> Stay connected with us through our social media channels for updates and more:</p>
+            <ul>
+                <li><b>LinkedIn:</b> <a href="https://www.linkedin.com/">Da Vinci Design LinkedIn</a></li>
+                <li><b>Twitter:</b> <a href="https://twitter.com/">@DaVinciDesign</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <hr>
+        <small>&copy; Da Vinci Design, October 7, 2024</small>
+    </footer>
+
+    <script>
+        function onDocumentLoad() {
+            drawCanvas();
+        }
+
+        function drawCanvas() {
+            const canvas = document.getElementById('displayBackground');
+            const context = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = 300;
+    
+            drawBackGround();
+            setTimeout(() => animateGoldenSpiral(context, canvas), 500);
+    
+            function drawBackGround() {
+                context.fillStyle = '#728C69';
+                context.fillRect(0, 0, canvas.width, canvas.height);
+            }
+    
+            function animateGoldenSpiral(ctx, canvas) {
+                const goldenRatio = 1.618;
+                let iteration = 0;
+    
+                // Start from bottom right, slightly shifted up and left
+                let x = canvas.width - 50; // Shift to the left by 50 pixels
+                let y = canvas.height - 50; // Shift up by 50 pixels
+                let width = 10;
+                let height = 10;
+    
+                function drawRectanglesAndArc() {
+                    ctx.strokeStyle = "lightgray";
+                    ctx.lineWidth = 2;
+    
+                    // Draw golden rectangles
+                    ctx.strokeRect(x - width, y - height, width, height);
+    
+                    // Draw quarter circle arc inside the rectangle
+                    ctx.beginPath();
+                    if (iteration % 4 === 0) {
+                        ctx.arc(x, y - height, width, Math.PI, 1.5 * Math.PI, false);
+                    } else if (iteration % 4 === 1) {
+                        ctx.arc(x - width, y - height, height, 1.5 * Math.PI, 0, false);
+                    } else if (iteration % 4 === 2) {
+                        ctx.arc(x - width, y, width, 0, 0.5 * Math.PI, false);
+                    } else {
+                        ctx.arc(x, y, height, 0.5 * Math.PI, Math.PI, false);
+                    }
+                    ctx.stroke();
+    
+                    // Update position and size for the next rectangle
+                    if (iteration % 4 === 0) {
+                        x -= width;
+                    } else if (iteration % 4 === 1) {
+                        y -= height;
+                    } else if (iteration % 4 === 2) {
+                        x += width;
+                    } else {
+                        y += height;
+                    }
+    
+                    const temp = width;
+                    width = height;
+                    height = temp * goldenRatio;
+    
+                    // Request the next frame
+                    iteration++;
+                    if (iteration <= 20) {
+                        requestAnimationFrame(drawRectanglesAndArc);
+                    }
+                }
+    
+                drawRectanglesAndArc();
+            }
+        }
+    
+        let currentSlide = 0;
+    
+        function changeSlide(step) {
+            const slides = document.getElementsByClassName('slide');
+            slides[currentSlide].classList.remove('active-slide');
+            currentSlide = (currentSlide + step + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active-slide');
+        }
+    
+        function showSlides() {
+            const slides = document.getElementsByClassName('slide');
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            currentSlide++;
+            if (currentSlide > slides.length) { currentSlide = 1; }    
+            slides[currentSlide - 1].style.display = "block";  
+            setTimeout(showSlides, 3000);
+        }
+    
+        function openTab(evt, sectionId) {
+            const contentSections = document.getElementsByClassName("content-section");
+            for (let i = 0; i < contentSections.length; i++) {
+                contentSections[i].classList.remove("active-content");
+            }
+    
+            const tabs = document.getElementsByClassName("tab");
+            for (let j = 0; j < tabs.length; j++) {
+                tabs[j].classList.remove("active-tab");
+            }
+    
+            document.getElementById(sectionId).classList.add("active-content");
+            evt.currentTarget.classList.add("active-tab");
+
+            drawCanvas();
+        }
+    
+        showSlides();
+    </script>
+</body>
+</html>
